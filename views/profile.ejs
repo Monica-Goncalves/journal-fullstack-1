@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+    <title>Future Self Journal</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+                <% if (user.local.email) { %>
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
+                <% } else { %>
+                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
+                <% } %>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+          <h3>Journal Entry</h3>
+          <ul class="messages">
+          <% for(var i=0; i<journalEntries.length; i++) {%>
+            <li class="message">
+              <span><%= journalEntries[i].date %></span>
+              <% for(var j = 0; j <journalEntries[i].questionSet.length; j++) {%>
+                <span><%= journalEntries[i].questionSet[j].question %></span>
+                <span><%= journalEntries[i].questionSet[j].answer %></span>
+              <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+              <% } %>
+            </li>
+          <% } %>
+          </ul>
+
+          <h2>Add a message</h2>
+        <% if (user.local.email) { %>
+          <form action="/messages" method="POST">
+            <input type="text" value="" name="user">
+            <label for="question1">My daily affirmation:</label>
+            <input type="text" placeholder="message" name="question1">
+            <label for="question2">Today I will focus on shifting my pattern of:</label>
+            <input type="text" placeholder="message" name="question2">
+            <label for="question3">I am grateful for:</label>
+            <input type="text" placeholder="message" name="question3">
+            <label for="question4">The person I am becoming will experience more:</label>
+            <input type="text" placeholder="message" name="question4">
+            <label for="question5">I have an opportunity to be my future self today when I:</label>
+            <input type="text" placeholder="message" name="question5">
+            <label for="question6">When I think about who I am becoming I feel:</label>
+            <input type="text" placeholder="message" name="question6">
+            <label for="question7">My daily affirmation:</label>
+            <input type="text" placeholder="message" name="question7">
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <% } %>
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
